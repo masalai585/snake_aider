@@ -29,7 +29,8 @@ score = 0
 # Game loop
 while True:
     next_key = w.getch()
-    key = key if next_key == -1 else next_key
+    if next_key != -1:
+        key = next_key
 
     # Check if the snake hits the wall or itself
     if (
