@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let dx = 1;
     let dy = 0;
     let score = 0;
+    let gameLoop;
 
     function createSnake() {
         snake.forEach(segment => {
@@ -94,17 +95,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function gameOver() {
-        alert("Game Over! Your score: " + score);
+    function startGame() {
+        clearInterval(gameLoop);
         snake.length = 1;
         dx = 1;
         dy = 0;
         score = 0;
-        updateGameBoard();
+        createSnake();
+        createFood();
+        gameLoop = setInterval(moveSnake, 200);
+    }
+
+    function gameOver() {
+        clearInterval(gameLoop);
+        alert("Game Over! Your score: " + score);
+        startGame();
     }
 
     createSnake();
     createFood();
-    setInterval(moveSnake, 200);
+    startGame();
     document.addEventListener("keydown", changeDirection);
 });
