@@ -26,15 +26,6 @@ class Snake:
             screen.draw.filled_rect(Rect(segment[0], segment[1], self.width, self.height), GREEN)
 
     def move(self):
-        if keyboard.left and self.direction != "right":
-            self.direction = "left"
-        elif keyboard.right and self.direction != "left":
-            self.direction = "right"
-        elif keyboard.up and self.direction != "down":
-            self.direction = "up"
-        elif keyboard.down and self.direction != "up":
-            self.direction = "down"
-
         if self.direction == "left":
             self.x -= self.vel
         elif self.direction == "right":
