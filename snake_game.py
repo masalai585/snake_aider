@@ -55,7 +55,8 @@ class Snake:
             self.y += self.vel
 
         self.body.append((self.x, self.y))
-        self.body = self.body[-1:]
+        if len(self.body) > 1:
+            self.body = self.body[-1:]
 
     def check_collision(self):
         if self.x < 0 or self.x >= WIDTH or self.y < 0 or self.y >= HEIGHT:
