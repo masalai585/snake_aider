@@ -1,22 +1,14 @@
-import streamlit as st
 import pygame
-import random
-
-# Initialize the game
-pygame.init()
+from pygame.locals import *
+import pgzrun
 
 # Set up the display
 WIDTH = 800
 HEIGHT = 600
-win = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Snake Game")
 
 # Define colors
 BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
 GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
 
 # Define the snake class
 class Snake:
@@ -31,18 +23,16 @@ class Snake:
 
     def draw(self):
         for segment in self.body:
-            pygame.draw.rect(win, GREEN, (segment[0], segment[1], self.width, self.height))
+            screen.draw.filled_rect(Rect(segment[0], segment[1], self.width, self.height), GREEN)
 
     def move(self):
-        keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_LEFT] and self.direction != "right":
+        if keyboard.left and self.direction != "right":
             self.direction = "left"
-        elif keys[pygame.K_RIGHT] and self.direction != "left":
+        elif keyboard.right and self.direction != "left":
             self.direction = "right"
-        elif keys[pygame.K_UP] and self.direction != "down":
+        elif keyboard.up and self.direction != "down":
             self.direction = "up"
-        elif keys[pygame.K_DOWN] and self.direction != "up":
+        elif keyboard.down and self.direction != "up":
             self.direction = "down"
 
         if self.direction == "left":
@@ -64,28 +54,17 @@ class Snake:
         return False
 
 # Define the game loop
-def game_loop():
-    snake = Snake()
-    clock = pygame.time.Clock()
-    game_over = False
+def update():
+    snake.move()
 
-    while not game_over:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                game_over = True
+    if snake.check_collision():
+        exit()
 
-        snake.move()
-
-        if snake.check_collision():
-            game_over = True
-
-        win.fill(BLACK)
-        snake.draw()
-        pygame.display.update()
-        clock.tick(10)
-
-    pygame.quit()
+def draw():
+    screen.fill(BLACK)
+    snake.draw()
 
 # Run the game loop
 if __name__ == "__main__":
-    game_loop()
+    snake = Snake()
+    pgzrun.go()
