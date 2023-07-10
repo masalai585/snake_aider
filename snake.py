@@ -43,13 +43,13 @@ while True:
     # Calculate the new head position
     new_head = [snake[0][0], snake[0][1]]
 
-    if key == curses.KEY_DOWN:
+    if key == curses.KEY_DOWN and key != curses.KEY_UP:
         new_head[0] += 1
-    if key == curses.KEY_UP:
+    if key == curses.KEY_UP and key != curses.KEY_DOWN:
         new_head[0] -= 1
-    if key == curses.KEY_LEFT:
+    if key == curses.KEY_LEFT and key != curses.KEY_RIGHT:
         new_head[1] -= 1
-    if key == curses.KEY_RIGHT:
+    if key == curses.KEY_RIGHT and key != curses.KEY_LEFT:
         new_head[1] += 1
 
     # Insert the new head position
