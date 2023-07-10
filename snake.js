@@ -67,6 +67,28 @@ document.addEventListener("DOMContentLoaded", () => {
         return snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y);
     }
 
+    function startGame() {
+        clearInterval(gameLoop);
+        snake.length = 1;
+        dx = 1;
+        dy = 0;
+        score = 0;
+        createSnake();
+        createFood();
+        gameLoop = setInterval(moveSnake, 200);
+    }
+
+    function gameOver() {
+        clearInterval(gameLoop);
+        alert("Game Over! Your score: " + score);
+        startGame();
+    }
+
+    createSnake();
+    createFood();
+    startGame();
+    document.addEventListener("keydown", changeDirection);
+
     function changeDirection(event) {
         const keyPressed = event.keyCode;
         const isMovingUp = dy === -1;
@@ -94,26 +116,4 @@ document.addEventListener("DOMContentLoaded", () => {
             dy = 1;
         }
     }
-
-    function startGame() {
-        clearInterval(gameLoop);
-        snake.length = 1;
-        dx = 1;
-        dy = 0;
-        score = 0;
-        createSnake();
-        createFood();
-        gameLoop = setInterval(moveSnake, 200);
-    }
-
-    function gameOver() {
-        clearInterval(gameLoop);
-        alert("Game Over! Your score: " + score);
-        startGame();
-    }
-
-    createSnake();
-    createFood();
-    startGame();
-    document.addEventListener("keydown", changeDirection);
 });
